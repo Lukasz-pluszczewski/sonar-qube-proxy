@@ -4,5 +4,10 @@ services:
     container_name: sonar-qube-proxy
     restart: always
     build: .
+    environment:
+      SONAR_QUBE_KEY: 123456789abcdefg987654321
+      SONAR_QUBE_URL: https://mysonarqube.dev/
+      WEBHOOK_TOKEN: 1234567abcdef
+      TOKEN: 654321
     ports:
       - "8080:8080"

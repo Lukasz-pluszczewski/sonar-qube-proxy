@@ -3,20 +3,20 @@ import config from '../config';
 
 const sonarQube = [
   {
-    path: 'metrics/:project?',
+    path: '/metrics/:project?',
     handlers: {
       get: [
-        authenticate(({ getHeaders }) => getHeaders('authentication') === config.token),
-        async({ params, influxService }) => {
+        authenticate(({ getHeader }) => getHeader('authentication') === config.token),
+        async({ params, influx }) => {
           if (params.project) {
             return {
-              status: influxService.metrics[params.project] ? 200 : 404,
-              body: influxService.metrics[params.project] || `No metrics for project ${params.project}`,
+              status: influx.metrics[params.project] ? 200 : 404,
+              body: influx.metrics[params.project] || `No metrics for project ${params.project}`,
             };
           }
           return {
             status: 200,
-            body: influxService.metrics,
+            body: influx.metrics,
           };
         },
       ],

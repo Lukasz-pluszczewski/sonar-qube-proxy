@@ -18,25 +18,25 @@ const InfluxService = () => {
     ],
   });
 
-  influx.writePoints([
-    {
-      measurement: 'test_measurement',
-      tags: { host: 'lala' },
-      fields: { duration: 100, path: 'foo' },
-    },
-  ])
-    .then(() => {
-      return influx.query(`
-        select * from response_times
-        where host = ${Influx.escape.stringLit('lala')}
-        order by time desc
-        limit 10
-      `);
-    })
-    .then(rows => {
-      rows.forEach(row => console.log(`A request to ${row.path} took ${row.duration}ms`));
-    })
-    .catch(error => console.log('error', error));
+  // influx.writePoints([
+  //   {
+  //     measurement: 'test_measurement',
+  //     tags: { host: 'lala' },
+  //     fields: { duration: 100, path: 'foo' },
+  //   },
+  // ])
+  //   .then(() => {
+  //     return influx.query(`
+  //       select * from response_times
+  //       where host = ${Influx.escape.stringLit('lala')}
+  //       order by time desc
+  //       limit 10
+  //     `);
+  //   })
+  //   .then(rows => {
+  //     rows.forEach(row => console.log(`A request to ${row.path} took ${row.duration}ms`));
+  //   })
+  //   .catch(error => console.log('error', error));
 
   const influxInstance = {
     metrics: {},

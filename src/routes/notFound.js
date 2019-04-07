@@ -4,9 +4,7 @@ const healthRoutes = [
     handlers: {
       get: () => ({
         status: 404,
-        body: {
-          message: 'Not found',
-        },
+        body: 'Not found',
       }),
     },
   },

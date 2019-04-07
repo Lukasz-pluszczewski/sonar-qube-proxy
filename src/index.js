@@ -1,4 +1,3 @@
-import checkPassword from 'middleware/authenticate';
 import config from './config';
 import routes from './routes';
 
@@ -14,9 +13,6 @@ import simpleExpress from 'services/simpleExpress/simpleExpress';
   simpleExpress({
     port: config.port,
     routes,
-    globalMiddlewares: [
-      checkPassword(config.password),
-    ],
     routeParams: { sonarQube, influx },
   })
     .then(({ app }) => console.log(`Started on port ${app.server.address().port}`))
