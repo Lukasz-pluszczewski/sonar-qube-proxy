@@ -1,0 +1,42 @@
+{
+  "name": "sonar-qube-proxy",
+  "version": "1.0.0",
+  "description": "Proxy app that collects data from sonar-qube and sends it to influxDB",
+  "repository": "https://github.com/Lukasz-pluszczewski/sonar-qube-proxy",
+  "main": "dist",
+  "scripts": {
+    "dev": "NODE_PATH=src ENV=development nodemon -r node_modules/dotenv/config --exec babel-node -- src/index.js",
+    "build": "NODE_PATH=src babel src -s -d dist",
+    "start": "NODE_PATH=dist ENV=production node -r dotenv/config dist",
+    "prestart": "NODE_PATH=src npm run -s build",
+    "lint": "NODE_PATH=src eslint src || true",
+    "lint:fix": "NODE_PATH=src eslint src --fix"
+  },
+  "author": "Łukasz Pluszczewski",
+  "license": "MIT",
+  "dependencies": {
+    "all-log": "1.1.0",
+    "axios": "^0.18.0",
+    "body-parser": "1.18.3",
+    "compression": "1.7.3",
+    "cors": "2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "4.16.4",
+    "influx": "^5.0.7",
+    "lodash": "4.17.11",
+    "mongodb": "3.1.10"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.1.5",
+    "@babel/core": "7.1.6",
+    "@babel/node": "7.0.0",
+    "@babel/plugin-proposal-class-properties": "7.1.0",
+    "@babel/plugin-proposal-decorators": "7.1.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/preset-env": "7.1.6",
+    "@babel/preset-stage-0": "7.0.0",
+    "eslint": "4.8.0",
+    "eslint-config-brainhub": "1.6.3",
+    "nodemon": "1.18.7"
+  }
+}
