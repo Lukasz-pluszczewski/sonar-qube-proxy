@@ -15,11 +15,11 @@ const sonarQube = [
           }
 
           const { data } = await sonarQube.getMetrics(project);
-          const { data: availableMetrics } = await sonarQube.getAvailableMetrics();
-          await influx.saveMetrics(project, data, availableMetrics);
+          const preparedData = sonarQube.prepareData(data.component.measures);
 
           return {
             status: 200,
+            body: preparedData,
           };
         }
       ],

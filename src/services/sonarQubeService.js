@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 
-const LIST_OF_METRICS = [
+export const LIST_OF_METRICS = [
   // Issues
   'critical_violations',
   'new_critical_violations',
@@ -51,7 +51,7 @@ const LIST_OF_METRICS = [
   'new_duplicated_lines_density',
 ];
 
-const sonarQubeService = async ({ sonarQubeUrl, apiKey }) => {
+const sonarQubeService = async({ sonarQubeUrl, apiKey }) => {
   const client = axios.create({
     baseURL: `${sonarQubeUrl}api/`,
     auth: {
@@ -59,7 +59,8 @@ const sonarQubeService = async ({ sonarQubeUrl, apiKey }) => {
     },
   });
 
-  const { data: availableMetrics } = await client.get('metrics/search');
+  const metricsResponse = await client.get('metrics/search');
+  const availableMetrics = metricsResponse.data.metrics;
 
   const sonarQubeInstance = {
     makeRequest: (method, url, options) => {
@@ -88,6 +89,23 @@ const sonarQubeService = async ({ sonarQubeUrl, apiKey }) => {
     },
     help: async() => {
       return { data: _.filter(Object.keys(sonarQubeInstance), method => method !== 'makeRequest') };
+    },
+    prepareData: metricsValues => {
+      const metricsMap = {};
+
+      LIST_OF_METRICS.forEach(metricName => metricsMap[metricName] = {});
+      metricsValues.forEach(metric => {
+        if (metricsMap[metric.metric]) {
+          metricsMap[metric.metric].value = metric.value;
+        }
+      });
+      availableMetrics.forEach(metric => {
+        if (metricsMap[metric.key]) {
+          metricsMap[metric.key].type = metric.type;
+          metricsMap[metric.key].qualitative = metric.qualitative;
+          metricsMap[metric.key].direction = metric.direction;
+        }
+      });
     },
   };
 
