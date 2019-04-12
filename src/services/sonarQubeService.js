@@ -51,7 +51,7 @@ const LIST_OF_METRICS = [
   'new_duplicated_lines_density',
 ];
 
-const sonarQubeService = ({ sonarQubeUrl, apiKey }) => {
+const sonarQubeService = async ({ sonarQubeUrl, apiKey }) => {
   const client = axios.create({
     baseURL: `${sonarQubeUrl}api/`,
     auth: {
@@ -59,7 +59,7 @@ const sonarQubeService = ({ sonarQubeUrl, apiKey }) => {
     },
   });
 
-  const availableMetrics = client.get('metrics/search');
+  const { data: availableMetrics } = await client.get('metrics/search');
 
   const sonarQubeInstance = {
     makeRequest: (method, url, options) => {

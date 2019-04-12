@@ -14,6 +14,7 @@ const sonarQube = [
               body: influx.metrics[params.project] || `No metrics for project ${params.project}`,
             };
           }
+
           return {
             status: 200,
             body: influx.metrics,
