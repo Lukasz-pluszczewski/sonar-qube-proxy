@@ -7,11 +7,12 @@ const sonarQube = [
     handlers: {
       post: [
         authenticate(({ params }) => console.log('auth', params) || params.token === config.webhookToken),
-        async ({ body, params, sonarQube, googleSheets }) => {
-
-          const project = body?.project?.key;
+        async({ body, params, sonarQube, googleSheets }) => {
+          const project = _.get(body, 'project.key');
           if (!project) {
-            return {};
+            return {
+              status: 400,
+            };
           }
 
           const { data } = await sonarQube.getMetrics(project);

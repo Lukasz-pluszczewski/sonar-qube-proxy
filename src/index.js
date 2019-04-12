@@ -16,6 +16,15 @@ import simpleExpress from 'services/simpleExpress/simpleExpress';
     port: config.port,
     routes,
     routeParams: { sonarQube, influx, googleSheets },
+    errorHandlers: [
+      (error, { originalUrl }) => {
+        console.error(`Error in ${originalUrl} route`, error);
+        return {
+          status: 500,
+          body: 'Unknown error',
+        };
+      },
+    ],
   })
     .then(({ app }) => console.log(`Started on port ${app.server.address().port}`))
     .catch(error => console.error('Error', error));
