@@ -3,7 +3,20 @@ import config from '../config';
 
 const sonarQube = [
   {
-    path: '/metrics/:project?',
+    path: '/metrics/',
+    handlers: {
+      get: [
+        async({ prometheus }) => {
+          return {
+            status: 200,
+            body: await prometheus.register.metrics(),
+          }
+        }
+      ]
+    }
+  },
+  {
+    path: '/metrics/:project',
     handlers: {
       get: [
         authenticate(({ getHeader }) => getHeader('authentication') === config.token),
