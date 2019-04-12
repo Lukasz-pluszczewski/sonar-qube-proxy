@@ -106,6 +106,8 @@ const sonarQubeService = async({ sonarQubeUrl, apiKey }) => {
           metricsMap[metric.key].direction = metric.direction;
         }
       });
+
+      return metricsMap;
     },
   };
 
