@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import authenticate from '../middleware/authenticate';
 import config from '../config';
 

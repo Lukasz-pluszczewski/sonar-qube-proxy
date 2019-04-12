@@ -1,5 +1,4 @@
 import Prometheus from 'prom-client';
-import _ from 'lodash';
 
 import { LIST_OF_METRICS } from './sonarQubeService';
 

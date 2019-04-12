@@ -6,14 +6,12 @@ const sonarQube = [
     path: '/metrics/',
     handlers: {
       get: [
-        async({ prometheus }) => {
-          return {
-            status: 200,
-            body: await prometheus.register.metrics(),
-          }
-        }
-      ]
-    }
+        async({ prometheus }) => ({
+          status: 200,
+          body: await prometheus.register.metrics(),
+        }),
+      ],
+    },
   },
   {
     path: '/metrics/:project',
