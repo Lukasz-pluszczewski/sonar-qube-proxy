@@ -2,20 +2,20 @@ import config from './config';
 import routes from './routes';
 
 import createSonarQube from './services/sonarQubeService';
-import createInflux from './services/InfluxService';
+import createPrometheus from './services/prometheusService';
 import createGoogleSheets from './services/sheetService';
 
 import simpleExpress from 'services/simpleExpress/simpleExpress';
 
 (async function() {
   const sonarQube = await createSonarQube({ sonarQubeUrl: config.sonarQubeUrl, apiKey: config.sonarQubeKey });
-  const influx = await createInflux();
+  const prometheus = await createPrometheus();
   const googleSheets = await createGoogleSheets(config);
 
   simpleExpress({
     port: config.port,
     routes,
-    routeParams: { sonarQube, influx, googleSheets },
+    routeParams: { sonarQube, prometheus, googleSheets },
     errorHandlers: [
       (error, { originalUrl }) => {
         console.error(`Error in ${originalUrl} route`, error);

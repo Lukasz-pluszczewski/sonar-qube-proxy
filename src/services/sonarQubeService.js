@@ -38,6 +38,7 @@ export const LIST_OF_METRICS = [
   'comment_lines_data',
 
   // coverage
+  'coverage',
   'overall_coverage',
   'new_overall_coverage',
   'overall_branch_coverage',
