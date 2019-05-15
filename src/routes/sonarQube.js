@@ -18,17 +18,12 @@ const sonarQube = [
     handlers: {
       get: [
         authenticate(({ getHeader }) => getHeader('authentication') === config.token),
-        async({ params, influx }) => {
-          if (params.project) {
-            return {
-              status: influx.metrics[params.project] ? 200 : 404,
-              body: influx.metrics[params.project] || `No metrics for project ${params.project}`,
-            };
-          }
-
+        async({ params }) => {
+          const { data } = await sonarQube.getMetrics(params.project);
+          const preparedData = sonarQube.prepareData(data.component.measures);
           return {
             status: 200,
-            body: influx.metrics,
+            body: preparedData,
           };
         },
       ],
