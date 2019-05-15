@@ -44,6 +44,7 @@ const metricTypes = {
   comment_lines_data: types.GAUGE,
 
   // coverage
+  coverage: types.GAUGE,
   overall_coverage: types.GAUGE,
   new_overall_coverage: types.GAUGE,
   overall_branch_coverage: types.GAUGE,
