@@ -56,6 +56,15 @@ const metricTypes = {
   new_duplicated_lines: types.GAUGE,
   duplicated_lines_density: types.GAUGE,
   new_duplicated_lines_density: types.GAUGE,
+
+  // ---
+  effort_to_reach_maintainability_rating_a: types.GAUGE,
+  new_vulnerabilities: types.GAUGE,
+  confirmed_issues: types.GAUGE,
+  false_positive_issues: types.GAUGE,
+  info_violations: types.GAUGE,
+  violations: types.GAUGE,
+  open_issues: types.GAUGE,
 };
 
 const PrometheusService = () => {

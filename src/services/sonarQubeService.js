@@ -50,6 +50,15 @@ export const LIST_OF_METRICS = [
   'new_duplicated_lines',
   'duplicated_lines_density',
   'new_duplicated_lines_density',
+
+  // ----
+  'effort_to_reach_maintainability_rating_a',
+  'new_vulnerabilities',
+  'confirmed_issues',
+  'false_positive_issues',
+  'info_violations',
+  'violations',
+  'open_issues',
 ];
 
 const sonarQubeService = async({ sonarQubeUrl, apiKey }) => {
