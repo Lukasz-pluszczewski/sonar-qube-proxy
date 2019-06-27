@@ -86,7 +86,12 @@ const sonarQubeService = async({ sonarQubeUrl, apiKey }) => {
         const status = error && error.response && error.response.status;
         const data = error && error.response && error.response.data;
 
-        log.error(`Request failed; ${method} ${url}; status: ${status}`);
+        try {
+          log.error(`Request failed; ${method} ${url}; status: ${status}; data: \n${JSON.stringify(data, null, 2)}`);
+        } catch (e) {
+          log.error(`Request failed; ${method} ${url}; status: ${status}`);
+        }
+
         return Promise.reject({ status, error: data });
       });
     },
