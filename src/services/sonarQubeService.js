@@ -1,5 +1,9 @@
 import _ from 'lodash';
 import axios from 'axios';
+import debug from 'debug';
+
+const log = debug('sonarQubeService');
+log.error = debug('sonarQubeService:error');
 
 export const LIST_OF_METRICS = [
   // Issues
@@ -79,7 +83,11 @@ const sonarQubeService = async({ sonarQubeUrl, apiKey }) => {
         method,
         url,
       }).catch(error => {
-        return { status: error.response.status, error: error.response.data };
+        const status = error && error.response && error.response.status;
+        const data = error && error.response && error.response.data;
+
+        log.error(`Request failed; ${method} ${url}; status: ${status}`);
+        return Promise.reject({ status, error: data });
       });
     },
     getAvailableMetrics: () => availableMetrics,
