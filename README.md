@@ -13,3 +13,13 @@
 ### Run production build
 `npm run start`
 
+### Configuring SonarQube webhook
+**1. Set WEBHOOK_TOKEN env**
+Set any random string as a WEBHOOK_TOKEN environment variable value, e.g. "my$random%token"
+
+**2. Set webhook url in SonarQube**
+![](images/sonarqube.png)
+- Go to Administration -> Configuration -> General Settings -> Webhooks
+- Set a name of the webhook (it can be anything e.g. a name of the app that will receive the webhook requests)
+- Set a webhook url (e.g. If proxy is available on `https://my-super-proxy.com` domain then the webhook URL is: `https://my-super-proxy.com/webhook/my$random%token`)
+- Click "Save"
